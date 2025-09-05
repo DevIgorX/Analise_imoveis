@@ -13,7 +13,9 @@
             <div class="card-body">
                 <h5 class="card-title">{{ imovel.endereco }}</h5>
                 <p class="card-text"><strong>Preço:</strong> {{ imovel.preco }}</p>
-                <p class="card-text"><strong>Corretor(a):</strong> {{ imovel.corretor }} ({{ imovel.telefone_corretor }})</p>
+                <p class="card-text"><strong>Quartos:</strong> {{ imovel.quartos }}</p>
+                <p class="card-text"><strong>Terreno Total:</strong> {{ imovel.terreno_total }}</p>
+                <p class="card-text"><strong>Corretor(a):</strong> {{ imovel.corretor }} {{ imovel.telefone_corretor }}</p>
                 <a href="{{ imovel.link }}" class="btn btn-secondary" target="_blank">Ver Anúncio Original</a>
             </div>
         </div>

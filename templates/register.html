@@ -1,11 +1,49 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Imóvel{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Cadastrar Novo Imóvel</h1>
+
+    <form action="{{url_for('rotas.criar')}}" method="POST">
+        <div class="mb-3">
+            <label for="endereco" class="form-label">Endereço</label>
+            <input type="text" class="form-control" id="endereco" name="endereco" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="preco" class="form-label">Preço</label>
+            <input type="text" class="form-control" id="preco" name="preco" placeholder="Ex: R$ 350.000,00" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="quartos" class="form-label">Quantidade de Quartos</label>
+            <input type="number" class="form-control" id="quartos" name="quartos" min="0" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="terreno_total" class="form-label">Terreno Total</label>
+            <input type="text" class="form-control" id="terreno_total" name="terreno_total" placeholder="Ex: 180m²" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="link" class="form-label">Link do Anúncio</label>
+            <input type="url" class="form-control" id="link" name="link" placeholder="https://..." required>
+        </div>
+
+        <div class="mb-3">
+            <label for="corretor" class="form-label">Nome do Corretor(a)</label>
+            <input type="text" class="form-control" id="corretor" name="corretor" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="telefone_corretor" class="form-label">Telefone do Corretor(a)</label>
+            <input type="text" class="form-control" id="telefone_corretor" name="telefone_corretor" placeholder="(62) 99999-1111" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+        <a href="/" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

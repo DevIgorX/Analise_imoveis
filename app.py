@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 app.register_blueprint(rotas)
 
-
+app.secret_key = 'alura'
 
 # Adição para rodar o app diretamente
 if __name__ == '__main__':
