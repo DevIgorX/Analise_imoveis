@@ -6,9 +6,12 @@ rotas = Blueprint('rotas',__name__)
 
 
 @rotas.route('/')
+def home():
+  return render_template('home.html')
+
+@rotas.route('/imoveis')
 def index():
  return render_template('index.html', lista_de_imoveis=imoveis)
-
 
 @rotas.route('/cadastrar')
 def cadastrar():
@@ -29,3 +32,9 @@ def criar():
   imoveis.append(novo_imovel)
   flash("Imovel cadastrado com sucesso!")
   return redirect(url_for('rotas.index'))
+
+
+
+# @rotas.route('/login')
+# def login():
+

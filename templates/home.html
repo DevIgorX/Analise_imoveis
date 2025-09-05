@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Sistema de Catálogo de Imóveis</h1>
+            <p class="col-md-8 fs-4">
+                Bem-vindo ao seu assistente pessoal para compra de imóveis.
+                Use este sistema para cadastrar e organizar os anúncios que você encontra,
+                facilitando sua análise e tomada de decisão.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Ver Catálogo</h2>
+            <p>Visualize todos os imóveis que você já cadastrou.</p>
+            <p><a class="btn btn-primary" href="/imoveis">Acessar Catálogo &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Adicionar Imóvel</h2>
+            <p>Cadastre um novo anúncio de imóvel para sua análise.</p>
+            <p><a class="btn btn-primary" href="/cadastrar">Cadastrar Novo &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Login</h2>
+            <p>Acesse sua área restrita (funcionalidade em construção).</p>
+            <p><a class="btn btn-secondary disabled" href="#">Acessar &raquo;</a></p>
+        </div>
+    </div>
+{% endblock %}
