@@ -1,12 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask
 from routes import rotas
-# Cria a nossa aplicação
+from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
 
 app.register_blueprint(rotas)
+app.config.from_pyfile('config.py')
+db = SQLAlchemy(app)
 
-app.secret_key = 'alura'
 
-# Adição para rodar o app diretamente
 if __name__ == '__main__':
     app.run(debug=True)

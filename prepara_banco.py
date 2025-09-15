@@ -34,3 +34,4 @@ cursor.execute(''' SELECT * from corretores''')
 print(cursor.fetchall()) #
 
 banco.commit()
+banco.close()

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for, flash
-from services import imoveis, Imoveis
+from models import Corretor, Imovel
+from app import db
 
 
 rotas = Blueprint('rotas',__name__)
@@ -11,6 +12,7 @@ def home():
 
 @rotas.route('/imoveis')
 def index():
+ imoveis = Imovel.query.order_by(Imovel.id)
  return render_template('index.html', lista_de_imoveis=imoveis)
 
 @rotas.route('/cadastrar')
@@ -20,16 +22,17 @@ def cadastrar():
 
 @rotas.route('/criar', methods=['POST',])
 def criar():
-  endereco = request.form['endereco']
+  endereco = request.form['regiao']
   preco = request.form['preco']
   quartos = request.form['quartos']
-  terreno_total = request.form['terreno_total']
-  link = request.form['link']
-  corretor = request.form['corretor']
-  telefone_corretor = request.form['telefone_corretor']
+  terreno_total = request.form['area_total']
+  area_construida = request.form['area_construida']
+  valor_entrada = request.form['valor_entrada']
+  id_corretor = request.form['id_corretor']
 
-  novo_imovel = Imoveis(endereco, preco, quartos , terreno_total , link,  corretor, telefone_corretor )
-  imoveis.append(novo_imovel)
+  novo_imovel = Imovel(endereco=endereco, preco=preco, quartos=quartos, terreno_total=terreno_total, area_construida=area_construida, valor_entrada=valor_entrada, id_corretor=id_corretor)
+  db.session.add(novo_imovel)
+  db.session.commit()
   flash("Imovel cadastrado com sucesso!")
   return redirect(url_for('rotas.index'))
 
