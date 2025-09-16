@@ -2,38 +2,40 @@ import sqlite3
 
 banco = sqlite3.connect("imovel.db") #variavel para criar ou se conectar com o banco
 
-#cria a variavel cursor que vai receber o objeto banco e irá utilizar o metodo cursor que vai nos possibilitar criar tabelas e manipular o banco de dados 
-
 cursor = banco.cursor()
 
 
-# cursor.execute('''CREATE TABLE corretores (
-#                id INTEGER PRIMARY KEY AUTOINCREMENT,
-#                nome TEXT NOT NULL,
-#                Contato TEXT NOT NULL
-#                )''')
+cursor.execute('''CREATE TABLE corretores (
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
+               nome TEXT NOT NULL,
+               Contato TEXT NOT NULL
+               )''')
 
-# cursor.execute('''CREATE TABLE Imoveis(
-#                id INTEGER PRIMARY KEY AUTOINCREMENT,
-#                regiao TEXT NOT NULL, 
-#                preco INTEGER NOT NULL,
-#                quartos INTEGER, 
-#                area_total TEXT ,
-#                area_construida TEXT,
-#                area_gourmet TEXT NOT NULL CHECK(area_gourmet IN('Sim', 'Não')),
-#                Valor_entrada INTEGER,
-#                id_corretor INTEGER NOT NULL,
-#                FOREIGN KEY(id_corretor) REFERENCES corretores(id)
-#                )
-#                ''')
+cursor.execute('''CREATE TABLE Imoveis(
+               id INTEGER PRIMARY KEY AUTOINCREMENT,
+               regiao TEXT NOT NULL, 
+               preco INTEGER NOT NULL,
+               quartos INTEGER, 
+               area_total TEXT ,
+               area_construida TEXT,
+               area_gourmet TEXT NOT NULL CHECK(area_gourmet IN('Sim', 'Não')),
+               Valor_entrada INTEGER,
+                link_anuncio TEXT,
+               id_corretor INTEGER NOT NULL,
+               FOREIGN KEY(id_corretor) REFERENCES corretores(id)
+               )
+               ''')
 
 
-cursor.execute("INSERT INTO corretores (nome, Contato) VALUES ('Lourenço Imoveis', '(62) 98428-4002')")
-cursor.execute('''INSERT INTO Imoveis(regiao, preco, quartos, area_total, area_construida, area_gourmet, valor_entrada, id_corretor)  values 
-                ('Setor Barcelos - Trindade','285.000,00', 3, '156m','80m','Sim',28500000, 1)
-              ''')
-# cursor.execute("INSERT INTO corretores (nome, Contato) VALUES ('Lourenço Imoveis', '(62) 98428-4002')")
-# cursor.execute(''' SELECT * from corretores''')
+cursor.execute("INSERT INTO corretores (nome, Contato) VALUES ('Lourenço Imoveis', '(62) 98428-4002'),('Marcos Dias', '(62) 9154-0452') ")
+cursor.execute(''' 
+            INSERT INTO Imoveis(regiao, preco, quartos, area_total, area_construida, area_gourmet, valor_entrada, link_anuncio, id_corretor) values 
+               ('Centro', 350000, 3, '120m²', '100m²', 'Não', 50000, 'https://colab.google/', 1),
+               ('Setor Oeste', 450000, 4, '150m²', '120m²', 'Sim', 80000,  'https://www.google.com/anuncio2', 2) ,
+               ('Jardim América', 300000, 3, '110m²', '90m²', 'Não', 60000, 'https://www.exemplo.com/anuncio3', 3)
+
+ ''')
+
 
 print(cursor.fetchall()) #
 

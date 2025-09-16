@@ -20,21 +20,21 @@ def cadastrar():
   return render_template('register.html')
 
 
-@rotas.route('/criar', methods=['POST',])
-def criar():
-  endereco = request.form['regiao']
-  preco = request.form['preco']
-  quartos = request.form['quartos']
-  terreno_total = request.form['area_total']
-  area_construida = request.form['area_construida']
-  valor_entrada = request.form['valor_entrada']
-  id_corretor = request.form['id_corretor']
+# @rotas.route('/criar', methods=['POST',])
+# def criar():
+#   endereco = request.form['regiao']
+#   preco = request.form['preco']
+#   quartos = request.form['quartos']
+#   terreno_total = request.form['area_total']
+#   area_construida = request.form['area_construida']
+#   valor_entrada = request.form['valor_entrada']
+#   id_corretor = request.form['id_corretor']
 
-  novo_imovel = Imovel(endereco=endereco, preco=preco, quartos=quartos, terreno_total=terreno_total, area_construida=area_construida, valor_entrada=valor_entrada, id_corretor=id_corretor)
-  db.session.add(novo_imovel)
-  db.session.commit()
-  flash("Imovel cadastrado com sucesso!")
-  return redirect(url_for('rotas.index'))
+#   novo_imovel = Imovel(endereco=endereco, preco=preco, quartos=quartos, terreno_total=terreno_total, area_construida=area_construida, valor_entrada=valor_entrada, id_corretor=id_corretor)
+#   db.session.add(novo_imovel)
+#   db.session.commit()
+#   flash("Imovel cadastrado com sucesso!")
+#   return redirect(url_for('rotas.index'))
 
 
 
