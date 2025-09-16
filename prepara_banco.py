@@ -29,7 +29,11 @@ cursor = banco.cursor()
 
 
 cursor.execute("INSERT INTO corretores (nome, Contato) VALUES ('Lourenço Imoveis', '(62) 98428-4002')")
-cursor.execute(''' SELECT * from corretores''')
+cursor.execute('''INSERT INTO Imoveis(regiao, preco, quartos, area_total, area_construida, area_gourmet, valor_entrada, id_corretor)  values 
+                ('Setor Barcelos - Trindade','285.000,00', 3, '156m','80m','Sim',28500000, 1)
+              ''')
+# cursor.execute("INSERT INTO corretores (nome, Contato) VALUES ('Lourenço Imoveis', '(62) 98428-4002')")
+# cursor.execute(''' SELECT * from corretores''')
 
 print(cursor.fetchall()) #
 

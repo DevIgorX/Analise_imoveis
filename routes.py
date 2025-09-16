@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for, flash
 from models import Corretor, Imovel
-from app import db
+from extensions import db
 
 
 rotas = Blueprint('rotas',__name__)
@@ -38,6 +38,4 @@ def criar():
 
 
 
-# @rotas.route('/login')
-# def login():
 
