@@ -24,11 +24,11 @@
 
          <div class="mb-3">
             <label for="quartos" class="form-label">Área Gourmet</label>
-            <input type="number" class="form-control" id="area_gourmet" name="area_gourmet" placeholder="Sim/Não"   required>
+            <input type="text" class="form-control" id="area_gourmet" name="area_gourmet" placeholder="Sim/Não"   required>
         </div>
          <div class="mb-3">
             <label for="quartos" class="form-label">Área Construida</label>
-            <input type="number" class="form-control" id="area_construida" name="area_construida" placeholder="Ex: 180m²"  required>
+            <input type="text" class="form-control" id="area_construida" name="area_construida" placeholder="Ex: 180m²"  required>
         </div>
 
         <div class="mb-3">
@@ -43,18 +43,14 @@
 
         <div class="mb-3">
             <label for="link" class="form-label">Link do Anúncio</label>
-            <input type="url" class="form-control" id="link" name="link" placeholder="https://..." required>
+            <input type="url" class="form-control" id="link" name="link_anuncio" placeholder="https://..." required>
         </div>
 
         <div class="mb-3">
-            <label for="corretor" class="form-label">Nome do Corretor(a)</label>
-            <input type="text" class="form-control" id="corretor" name="corretor" required>
+            <label for="corretor" class="form-label">id corretor</label>
+            <input type="text" class="form-control" id="corretor" name="id_corretor" required>
         </div>
 
-        <div class="mb-3">
-            <label for="telefone_corretor" class="form-label">Telefone do Corretor(a)</label>
-            <input type="text" class="form-control" id="telefone_corretor" name="telefone_corretor" placeholder="(62) 99999-1111" required>
-        </div>
 
         <button type="submit" class="btn btn-success">Cadastrar</button>
         <a href="/" class="btn btn-secondary">Cancelar</a>

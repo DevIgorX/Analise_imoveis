@@ -27,14 +27,14 @@ def criar():
   regiao = request.form['regiao']
   preco = request.form['preco']
   quartos = request.form['quartos']
-  terreno_total = request.form['area_total']
+  area_total = request.form['area_total']
   area_construida = request.form['area_construida']
   area_gourmet = request.form['area_gourmet']
   valor_entrada = request.form['valor_entrada']
   link_anuncio = request.form['link_anuncio']
   id_corretor = request.form['id_corretor']
 
-  novo_imovel = Imoveis(regiao=regiao, preco=preco, quartos=quartos, terreno_total=terreno_total, area_construida=area_construida,area_gourmet= area_gourmet, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=id_corretor)
+  novo_imovel = Imoveis(regiao=regiao, preco=preco, quartos=quartos, area_total=area_total, area_construida=area_construida,area_gourmet= area_gourmet, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=id_corretor)
   db.session.add(novo_imovel)
   db.session.commit()
   flash("Imovel cadastrado com sucesso!")
