@@ -15,12 +15,12 @@ cursor.execute('''CREATE TABLE Imoveis(
                id INTEGER PRIMARY KEY AUTOINCREMENT,
                regiao TEXT NOT NULL, 
                preco INTEGER NOT NULL,
-               quartos INTEGER, 
-               area_total TEXT ,
+               quartos INTEGER NOT NULL, 
+               area_total TEXT NOT NULL,
                area_construida TEXT,
                area_gourmet TEXT NOT NULL CHECK(area_gourmet IN('Sim', 'Não')),
                Valor_entrada INTEGER,
-                link_anuncio TEXT,
+                link_anuncio TEXT NOT NULL,
                id_corretor INTEGER NOT NULL,
                FOREIGN KEY(id_corretor) REFERENCES corretores(id)
                )
@@ -32,7 +32,7 @@ cursor.execute('''
             INSERT INTO Imoveis(regiao, preco, quartos, area_total, area_construida, area_gourmet, valor_entrada, link_anuncio, id_corretor) values 
                ('Centro', 350000, 3, '120m²', '100m²', 'Não', 50000, 'https://colab.google/', 1),
                ('Setor Oeste', 450000, 4, '150m²', '120m²', 'Sim', 80000,  'https://www.google.com/anuncio2', 2) ,
-               ('Jardim América', 300000, 3, '110m²', '90m²', 'Não', 60000, 'https://www.exemplo.com/anuncio3', 3)
+               ('Jardim América', 300000, 3, '110m²', '90m²', 'Não', 60000, 'https://www.exemplo.com/anuncio3', 1)
 
  ''')
 
