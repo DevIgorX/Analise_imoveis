@@ -1,7 +1,7 @@
 from extensions import db
 
-class Corretor(db.Model):
-   
+class Corretores(db.Model):
+    __tablename__ = 'Corretores'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String,nullable=False)
     contato = db.Column(db.String, nullable=False)
@@ -10,8 +10,8 @@ class Corretor(db.Model):
         return f'<Corretor {self.nome}>'
 
 
-class Imovel(db.Model):
-    
+class Imoveis(db.Model):
+    __tablename__ = 'Imoveis'
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     regiao = db.Column(db.String, nullable=False)    
     preco = db.Column(db.Integer, nullable=False)
@@ -21,8 +21,8 @@ class Imovel(db.Model):
     area_gourmet = db.Column(db.String)
     valor_entrada = db.Column(db.Integer)
     link_anuncio = db.Column(db.String, nullable=False)
-    id_corretor = db.Column(db.Integer, db.ForeignKey('Corretor.id'), nullable=False)
-    corretor = db.relationship('Corretor', backref='Imovel')
+    id_corretor = db.Column(db.Integer, db.ForeignKey('Corretores.id'), nullable=False)
+    corretor = db.relationship('Corretores', backref='Imoveis')
     
     
     def __repr__(self):

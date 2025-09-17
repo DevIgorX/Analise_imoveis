@@ -5,7 +5,7 @@ banco = sqlite3.connect("imovel.db") #variavel para criar ou se conectar com o b
 cursor = banco.cursor()
 
 
-cursor.execute('''CREATE TABLE corretores (
+cursor.execute('''CREATE TABLE Corretores (
                id INTEGER PRIMARY KEY AUTOINCREMENT,
                nome TEXT NOT NULL,
                Contato TEXT NOT NULL
@@ -21,13 +21,12 @@ cursor.execute('''CREATE TABLE Imoveis(
                area_gourmet TEXT NOT NULL CHECK(area_gourmet IN('Sim', 'Não')),
                Valor_entrada INTEGER,
                 link_anuncio TEXT NOT NULL,
-               id_corretor INTEGER NOT NULL,
-               FOREIGN KEY(id_corretor) REFERENCES corretores(id)
-               )
+               id_corretor INTEGER NOT NULL, FOREIGN KEY(id_corretor) REFERENCES Corretores(id))
+               
                ''')
 
 
-cursor.execute("INSERT INTO corretores (nome, Contato) VALUES ('Lourenço Imoveis', '(62) 98428-4002'),('Marcos Dias', '(62) 9154-0452') ")
+cursor.execute("INSERT INTO Corretores (nome, Contato) VALUES ('Lourenço Imoveis', '(62) 98428-4002'),('Marcos Dias', '(62) 9154-0452') ")
 cursor.execute(''' 
             INSERT INTO Imoveis(regiao, preco, quartos, area_total, area_construida, area_gourmet, valor_entrada, link_anuncio, id_corretor) values 
                ('Centro', 350000, 3, '120m²', '100m²', 'Não', 50000, 'https://colab.google/', 1),
