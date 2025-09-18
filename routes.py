@@ -17,10 +17,33 @@ def index():
 
 @rotas.route('/cadastrar')
 def cadastrar():
-  return render_template('register.html')
+  return render_template('create_imovel.html')
+
+@rotas.route('/cadastrar_Imo')
+def cadastrar_imo():
+   return render_template('create_corretor.html')
+
+@rotas.route('/cadastrar_corretor', methods=['POST',])
+def cadastrar_corretor():
+
+  nome_corretor = request.form['nome']
+  contato = request.form['contato']
+
+  corretor = Corretores.query.filter_by(nome=nome_corretor).first()
+
+  if corretor:
+    flash(corretor.nome + 'já existe no banco de dados')  
+    return redirect('/')
+  else:
+   novo_corretor = Corretores(nome=nome_corretor, contato=contato)
+   db.session.add(novo_corretor)
+   db.session.commit()
+   flash("Corretor Cadastrado com Sucesso")
+   return redirect(url_for('rotas.cadastrar'))
+  
 
 
-
+  
 
 @rotas.route('/criar', methods=['POST',])
 def criar():
