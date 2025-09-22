@@ -59,10 +59,14 @@
         </div>
 
         <div class="mb-3">
-            <label for="nome_corretor" class="form-label">nome corretor</label>
-            <input type="text" class="form-control" id="nome_corretor" name="nome_corretor" required>
+            <label for="nome_corretor" class="form-label">Nome do Corretor</label>
+            <select class="form-control" id="nome_corretor" name="nome_corretor" required>
+                <option value="">Selecione um corretor</option>
+                {% for corretor in corretores %}
+                    <option value="{{ corretor.nome }}">{{ corretor.nome }}</option>
+                {% endfor %}
+            </select>
         </div>
-
         <button type="submit" class="btn btn-success">Cadastrar</button>
         <a href="/" class="btn btn-secondary">Cancelar</a>
         

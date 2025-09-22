@@ -15,11 +15,12 @@ def index():
  imoveis = Imoveis.query.order_by(Imoveis.id)
  return render_template('index.html', lista_de_imoveis=imoveis)
 
-@rotas.route('/cadastrar')
+@rotas.route('/cadastrar_imovel_template')
 def cadastrar():
-  return render_template('create_imovel.html')
+  corretores = Corretores.query.all()
+  return render_template('create_imovel.html', corretores=corretores)
 
-@rotas.route('/cadastrar_corretor')
+@rotas.route('/cadastrar_corretor_template')
 def cadastrar_imo():
    return render_template('create_corretor.html')
 
@@ -32,14 +33,14 @@ def cadastrar_corretor():
   corretor = Corretores.query.filter_by(nome=nome_corretor).first()
 
   if corretor:
-    flash(corretor.nome + 'já existe no banco de dados')  
-    return redirect('/')
+    flash(f'O corretor {corretor.nome} já existe no banco de dados.')  
+    return redirect(url_for('rotas.cadastrar_imo'))
   else:
    novo_corretor = Corretores(nome=nome_corretor, contato=contato)
    db.session.add(novo_corretor)
    db.session.commit()
    flash("Corretor Cadastrado com Sucesso")
-   return redirect(url_for('rotas.cadastrar'))
+   return redirect(url_for('rotas.index'))
   
 
 @rotas.route('/criar', methods=['POST',])
@@ -56,14 +57,17 @@ def criar():
 
   corretor = Corretores.query.filter_by(nome=nome_corretor).first() 
 
+  print(corretor)
+
   if corretor:
-   novo_imovel = Imoveis(regiao=regiao, preco=preco, quartos=quartos, area_total=area_total, area_construida=area_construida,area_gourmet= area_gourmet, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=corretor)
+   novo_imovel = Imoveis(regiao=regiao, preco=preco, quartos=quartos, area_total=area_total, area_construida=area_construida,area_gourmet= area_gourmet, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=corretor.id)
    db.session.add(novo_imovel)
    db.session.commit()
    flash("Imovel cadastrado com sucesso!")
-  else: 
-   flash("Corretor já existe no banco de dados")
    return redirect(url_for('rotas.index'))
+  else: 
+   flash("Corretor não existe no banco de dados")
+   return redirect(url_for('rotas.cadastrar'))
 
 
 

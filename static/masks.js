@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Máscara de dinheiro
+  // Máscara de dinheiro (sem alterações)
   const moneyInputs = document.querySelectorAll('.money');
   moneyInputs.forEach(input => {
     IMask(input, {
@@ -17,16 +17,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Máscara para área (ex: 180m²)
+  // Máscara para área (CÓDIGO ALTERADO)
   const areaInputs = document.querySelectorAll('.area');
   areaInputs.forEach(input => {
     IMask(input, {
-      mask: Number,
-      min: 0,
-      max: 10000,        // limite máximo de metros quadrados
-      thousandsSeparator: '.',
-      suffix:'m²',       // adiciona "m²" no final
-      radix: ','
+      mask: 'num m²', // Define um padrão: número seguido por " m²"
+      blocks: {
+        num: {
+          mask: Number,
+          thousandsSeparator: '.'
+        }
+      }
     });
   });
 });
