@@ -14,31 +14,43 @@
 
         <div class="mb-3">
             <label for="preco" class="form-label">Preço</label>
-            <input type="text" class="form-control" id="preco" name="preco" placeholder="Ex: R$ 350.000,00" required>
+            <input type="text" class="form-control money" id="preco" name="preco" placeholder="Ex: R$ 350.000,00" required>
         </div>
 
         <div class="mb-3">
             <label for="quartos" class="form-label">Quantidade de Quartos</label>
-            <input type="number" class="form-control" id="quartos" name="quartos" min="0" required>
+            <select class="form-control" id="quartos" name="quartos" required>
+             <option value="">Selecione</option>
+             <option value="1">1</option>
+             <option value="2">2</option>
+             <option value="3">3</option>
+             <option value="4">4</option>
+             <option value="5">5</option>
+             
+            </select>
         </div>
 
          <div class="mb-3">
             <label for="quartos" class="form-label">Área Gourmet</label>
-            <input type="text" class="form-control" id="area_gourmet" name="area_gourmet" placeholder="Sim/Não"   required>
+            <select class="form-control" id="area_gourmet" name="area_gourmet" required>
+             <option value="">Selecione</option>
+             <option value="Sim">Sim</option>
+             <option value="Não">Não</option>
+            </select>
         </div>
          <div class="mb-3">
             <label for="quartos" class="form-label">Área Construida</label>
-            <input type="text" class="form-control" id="area_construida" name="area_construida" placeholder="Ex: 180m²"  required>
+            <input type="text" class="form-control area" id="area_construida" name="area_construida" placeholder="Ex: 180m²"  required>
         </div>
 
         <div class="mb-3">
             <label for="terreno_total" class="form-label">Área Total</label>
-            <input type="text" class="form-control" id="area_total" name="area_total" placeholder="Ex: 180m²" required>
+            <input type="text" class="form-control area" id="area_total" name="area_total" placeholder="Ex: 180m²" required>
         </div>
 
         <div class="mb-3">
             <label for="terreno_total" class="form-label">Valor de Entrada</label>
-            <input type="text" class="form-control" id="valor_entrada" name="valor_entrada" placeholder="R$ 20.000,00" required>
+            <input type="text" class="form-control money" id="valor_entrada" name="valor_entrada" placeholder="R$ 20.000,00" required>
         </div>
 
         <div class="mb-3">
@@ -47,8 +59,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="corretor" class="form-label">id corretor</label>
-            <input type="text" class="form-control" id="corretor" name="id_corretor" required>
+            <label for="nome_corretor" class="form-label">nome corretor</label>
+            <input type="text" class="form-control" id="nome_corretor" name="nome_corretor" required>
         </div>
 
         <button type="submit" class="btn btn-success">Cadastrar</button>

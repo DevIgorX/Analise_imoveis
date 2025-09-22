@@ -19,7 +19,7 @@ def index():
 def cadastrar():
   return render_template('create_imovel.html')
 
-@rotas.route('/cadastrar_Imo')
+@rotas.route('/cadastrar_corretor')
 def cadastrar_imo():
    return render_template('create_corretor.html')
 
@@ -42,9 +42,6 @@ def cadastrar_corretor():
    return redirect(url_for('rotas.cadastrar'))
   
 
-
-  
-
 @rotas.route('/criar', methods=['POST',])
 def criar():
   regiao = request.form['regiao']
@@ -55,13 +52,18 @@ def criar():
   area_gourmet = request.form['area_gourmet']
   valor_entrada = request.form['valor_entrada']
   link_anuncio = request.form['link_anuncio']
-  id_corretor = request.form['id_corretor']
+  nome_corretor = request.form['nome_corretor']
 
-  novo_imovel = Imoveis(regiao=regiao, preco=preco, quartos=quartos, area_total=area_total, area_construida=area_construida,area_gourmet= area_gourmet, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=id_corretor)
-  db.session.add(novo_imovel)
-  db.session.commit()
-  flash("Imovel cadastrado com sucesso!")
-  return redirect(url_for('rotas.index'))
+  corretor = Corretores.query.filter_by(nome=nome_corretor).first() 
+
+  if corretor:
+   novo_imovel = Imoveis(regiao=regiao, preco=preco, quartos=quartos, area_total=area_total, area_construida=area_construida,area_gourmet= area_gourmet, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=corretor)
+   db.session.add(novo_imovel)
+   db.session.commit()
+   flash("Imovel cadastrado com sucesso!")
+  else: 
+   flash("Corretor já existe no banco de dados")
+   return redirect(url_for('rotas.index'))
 
 
 
