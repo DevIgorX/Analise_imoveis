@@ -13,7 +13,8 @@ cursor.execute('''CREATE TABLE Corretores (
 
 cursor.execute('''CREATE TABLE Imoveis(
                id INTEGER PRIMARY KEY AUTOINCREMENT,
-               regiao TEXT NOT NULL, 
+               bairro TEXT NOT NULL
+               cidade TEXT NOT NULL, 
                preco INTEGER NOT NULL,
                quartos INTEGER NOT NULL, 
                area_total TEXT NOT NULL,
