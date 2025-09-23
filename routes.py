@@ -45,12 +45,14 @@ def cadastrar_corretor():
 
 @rotas.route('/criar', methods=['POST',])
 def criar():
-  regiao = request.form['regiao']
+  bairro = request.form['bairro']
+  cidade = request.form['cidade']
   preco = request.form['preco']
   quartos = request.form['quartos']
   area_total = request.form['area_total']
   area_construida = request.form['area_construida']
   area_gourmet = request.form['area_gourmet']
+  suite = request.form['suite']
   valor_entrada = request.form['valor_entrada']
   link_anuncio = request.form['link_anuncio']
   nome_corretor = request.form['nome_corretor']
@@ -60,7 +62,7 @@ def criar():
   print(corretor)
 
   if corretor:
-   novo_imovel = Imoveis(regiao=regiao, preco=preco, quartos=quartos, area_total=area_total, area_construida=area_construida,area_gourmet= area_gourmet, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=corretor.id)
+   novo_imovel = Imoveis(bairro=bairro, cidade=cidade, preco=preco, quartos=quartos, area_total=area_total, area_construida=area_construida,area_gourmet= area_gourmet, suite=suite, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=corretor.id)
    db.session.add(novo_imovel)
    db.session.commit()
    flash("Imovel cadastrado com sucesso!")

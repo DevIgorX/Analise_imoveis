@@ -8,12 +8,24 @@
 
     <form action="{{url_for('rotas.criar')}}" method="POST">
         <div class="mb-3">
-            <label for="endereco" class="form-label">Endereço</label>
-            <input type="text" class="form-control" id="endereco" name="regiao" required>
+            <label for="bairro" class="form-label">Setor/Bairro</label>
+            <input type="text" class="form-control" id="bairro" name="bairro" required>
+        </div>
+        <div class="mb-3">
+            <label for="cidade" class="form-label">Cidade/Município</label>
+           <select class="form-control" id="cidade" name="cidade" required>
+             <option value="">Selecione</option>
+             <option value="Goiânia">Goiânia</option>
+             <option value="Trindade">Trindade</option>
+             <option value="Senador Canedo">Senador Canedo</option>
+             <option value="Goianira">Goianira</option>
+             <option value="Aparecida de Goiânia">Aparecida de Goiânia</option>
+             
+            </select>
         </div>
 
         <div class="mb-3">
-            <label for="preco" class="form-label">Preço</label>
+            <label for="preco" class="form-label">Valor do Imovel</label>
             <input type="text" class="form-control money" id="preco" name="preco" placeholder="Ex: R$ 350.000,00" required>
         </div>
 
@@ -31,25 +43,33 @@
         </div>
 
          <div class="mb-3">
-            <label for="quartos" class="form-label">Área Gourmet</label>
+            <label for="area_gourmet" class="form-label">Área Gourmet</label>
             <select class="form-control" id="area_gourmet" name="area_gourmet" required>
              <option value="">Selecione</option>
              <option value="Sim">Sim</option>
              <option value="Não">Não</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label for="suite" class="form-label">Suite</label>
+            <select class="form-control" id="suite" name="suite" required>
+             <option value="">Selecione</option>
+             <option value="Sim">Sim</option>
+             <option value="Não">Não</option>
+            </select>
+        </div>
          <div class="mb-3">
-            <label for="quartos" class="form-label">Área Construida</label>
+            <label for="area_construida" class="form-label">Área Construida</label>
             <input type="text" class="form-control area" id="area_construida" name="area_construida" placeholder="Ex: 180m²"  required>
         </div>
 
         <div class="mb-3">
-            <label for="terreno_total" class="form-label">Área Total</label>
+            <label for="area_total" class="form-label">Área Total</label>
             <input type="text" class="form-control area" id="area_total" name="area_total" placeholder="Ex: 180m²" required>
         </div>
 
         <div class="mb-3">
-            <label for="terreno_total" class="form-label">Valor de Entrada</label>
+            <label for="valor_entrada"" class="form-label">Valor de Entrada</label>
             <input type="text" class="form-control money" id="valor_entrada" name="valor_entrada" placeholder="R$ 20.000,00" required>
         </div>
 

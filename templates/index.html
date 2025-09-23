@@ -12,12 +12,14 @@
     {% for imovel in lista_de_imoveis %}
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">{{ imovel.regiao }}</h5>
-                <p class="card-text"><strong>Preço:</strong> {{ imovel.preco }}</p>
+                <h5 class="card-title">{{ imovel.bairro }}</h1><p></p>
+                <p class="card-text"><strong>Cidade:</strong> {{ imovel.cidade }}</p>
+                <p class="card-text"><strong>Valor do Imovel:</strong> {{ imovel.preco }}</p>
                 <p class="card-text"><strong>Quartos:</strong> {{ imovel.quartos }}</p>
+                <p class="card-text"><strong>Área Gourmet:</strong> {{ imovel.area_gourmet }}</p>
+                <p class="card-text"><strong>Suite:</strong> {{ imovel.suite }}</p>
                 <p class="card-text"><strong>Área Total:</strong> {{ imovel.area_total }}</p>
                 <p class="card-text"><strong>Área Construida Total:</strong> {{ imovel.area_construida }}</p>
-                <p class="card-text"><strong>Área Gourmet:</strong> {{ imovel.area_gourmet }}</p>
                 <p class="card-text"><strong>Valor de Entrada:</strong> {{ imovel.valor_entrada }}</p>
                 <p class="card-text"><strong>Corretor(a):</strong> {{ imovel.corretor.nome }} {{imovel.corretor.contato}}</p>
                 <a href="{{ imovel.link_anuncio }}" class="btn btn-secondary" target="_blank">Ver Anúncio Original</a>
