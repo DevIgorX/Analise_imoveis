@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Imóvel{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Atualizar Imóvel</h1>
+
+    <form action="{{url_for('rotas.atualizar')}}" method="POST">
+        <input type="hidden" name="id" value="{{imovel.id}}">
+        <div class="mb-3">
+            <label for="bairro" class="form-label">Setor/Bairro</label>
+            <input type="text" class="form-control" id="bairro" name="bairro" value="{{imovel.bairro}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="cidade" class="form-label">Cidade/Município</label>
+           <select class="form-control" id="cidade" name="cidade" required>
+             <option value="{{imovel.cidade}}">{{imovel.cidade}}</option>
+             <option value="Goiânia">Goiânia</option>
+             <option value="Trindade">Trindade</option>
+             <option value="Senador Canedo">Senador Canedo</option>
+             <option value="Goianira">Goianira</option>
+             <option value="Aparecida de Goiânia">Aparecida de Goiânia</option>
+             
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="preco" class="form-label">Valor do Imovel</label>
+            <input type="text" class="form-control money" id="preco" name="preco" placeholder="Ex: R$ 350.000,00" value="{{imovel.preco}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="quartos" class="form-label">Quantidade de Quartos</label>
+            <select class="form-control" id="quartos" name="quartos" required>
+             <option value="imovel.quartos">{{imovel.quartos}}</option>
+             <option value="1">1</option>
+             <option value="2">2</option>
+             <option value="3">3</option>
+             <option value="4">4</option>
+             <option value="5">5</option>
+             
+            </select>
+        </div>
+
+         <div class="mb-3">
+            <label for="area_gourmet" class="form-label">Área Gourmet</label>
+            <select class="form-control" id="area_gourmet" name="area_gourmet" required>
+             <option value="{{imovel.area_gourmet}}">{{imovel.area_gourmet}}</option>
+             <option value="Sim">Sim</option>
+             <option value="Não">Não</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="suite" class="form-label">Suite</label>
+            <select class="form-control" id="suite" name="suite" required>
+             <option value="{imovel.suite}">{{imovel.suite}}</option>
+             <option value="Sim">Sim</option>
+             <option value="Não">Não</option>
+            </select>
+        </div>
+         <div class="mb-3">
+            <label for="area_construida" class="form-label">Área Construida</label>
+            <input type="text" class="form-control area" id="area_construida" name="area_construida" placeholder="Ex: 180m²" value="{{imovel.area_construida}}"  required>
+        </div>
+
+        <div class="mb-3">
+            <label for="area_total" class="form-label">Área Total</label>
+            <input type="text" class="form-control area" id="area_total" name="area_total" placeholder="Ex: 180m²" value="{{imovel.area_total}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor_entrada"" class="form-label">Valor de Entrada</label>
+            <input type="text" class="form-control money" id="valor_entrada" name="valor_entrada" placeholder="R$ 20.000,00" value="{{imovel.valor_entrada}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="link" class="form-label">Link do Anúncio</label>
+            <input type="url" class="form-control" id="link" name="link_anuncio" placeholder="https://..." value="{{imovel.link_anuncio}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="nome_corretor" class="form-label">Nome do Corretor</label>
+            <select class="form-control" id="nome_corretor" name="nome_corretor" required>
+                <option value="">Selecione o Corretor</option>
+                {% for corretor in corretores %}
+                    <option value="{{ corretor.nome }}">{{ corretor.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+        <a href="/" class="btn btn-secondary">Cancelar</a>
+        
+    </form>
+</div>
+{% endblock %}

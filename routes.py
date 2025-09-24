@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, redirect, url_for, flash
 from models import Corretores, Imoveis
 from extensions import db
+from typing import Optional
 
 
 rotas = Blueprint('rotas',__name__)
@@ -70,6 +71,38 @@ def criar():
   else: 
    flash("Corretor não existe no banco de dados")
    return redirect(url_for('rotas.cadastrar'))
+  
+
+@rotas.route('/editar/<int:id>')
+def editar(id):
+  imovel = Imoveis.query.filter_by(id=id).first()
+  corretores = Corretores.query.all()
+  corretor = Corretores.query.filter_by(id=id).first() #em desenvolvimento
+  return render_template('edit_imovel.html',imovel=imovel,corretores=corretores)
+
+@rotas.route('/atualizar', methods=['POST'])
+def atualizar(): 
+  imovel = Imoveis.query.filter_by(id=request.form['id']).first()
+
+  imovel.bairro = request.form['bairro']  # type: ignore
+  imovel.cidade = request.form['cidade'] # type: ignore
+  imovel.preco  = request.form['preco'] # type: ignore
+  imovel.quartos = request.form['quartos'] # type: ignore
+  imovel.area_total = request.form['area_total']# type: ignore
+  imovel.area_construida = request.form['area_construida']# type: ignore
+  imovel.area_gourmet = request.form['area_gourmet']# type: ignore
+  imovel.suite = request.form['suite']# type: ignore
+  imovel.valor_entrada = request.form['valor_entrada']# type: ignore
+  imovel.link_anuncio = request.form['link_anuncio']# type: ignore
+  imovel.nome_corretor = request.form['nome_corretor']# type: ignore
+
+  db.session.add(imovel)
+  db.session.commit()
+
+  return redirect(url_for('rotas.index'))
+
+ 
+
 
 
 
