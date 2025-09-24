@@ -1,29 +1,79 @@
 {% extends 'base.html' %}
 
-{% block title %}Lista de Imóveis{% endblock %}
+{% block title %}Catálogo de Imóveis{% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Catálogo de Imóveis para Análise</h1>
-        <a href="/cadastrar_imovel_template" class="btn btn-primary">Adicionar Novo Imóvel</a> 
-        <a href="/cadastrar_corretor_template" class="btn btn-primary">Adicionar Corretor</a>
-    </div>
 
-    {% for imovel in lista_de_imoveis %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">{{ imovel.bairro }}</h1><p></p>
-                <p class="card-text"><strong>Cidade:</strong> {{ imovel.cidade }}</p>
-                <p class="card-text"><strong>Valor do Imovel:</strong> {{ imovel.preco }}</p>
-                <p class="card-text"><strong>Quartos:</strong> {{ imovel.quartos }}</p>
-                <p class="card-text"><strong>Área Gourmet:</strong> {{ imovel.area_gourmet }}</p>
-                <p class="card-text"><strong>Suite:</strong> {{ imovel.suite }}</p>
-                <p class="card-text"><strong>Área Total:</strong> {{ imovel.area_total }}</p>
-                <p class="card-text"><strong>Área Construida Total:</strong> {{ imovel.area_construida }}</p>
-                <p class="card-text"><strong>Valor de Entrada:</strong> {{ imovel.valor_entrada }}</p>
-                <p class="card-text"><strong>Corretor(a):</strong> {{ imovel.corretor.nome }} {{imovel.corretor.contato}}</p>
-                <a href="{{ imovel.link_anuncio }}" class="btn btn-secondary" target="_blank">Ver Anúncio Original</a>
-            </div>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="icon-bed" viewBox="0 0 16 16">
+        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+    </symbol>
+    <symbol id="icon-area" viewBox="0 0 16 16">
+        <path d="M10.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l10-10zM10.5 1.5L1.5 10.5 3 12l9-9-1.5-1.5z"/>
+    </symbol>
+</svg>
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Catálogo de Imóveis</h1>
+    <div>
+        <a href="/cadastrar_imovel_template" class="btn btn-primary">Adicionar Imóvel</a> 
+        <a href="/cadastrar_corretor_template" class="btn btn-info">Adicionar Corretor</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Bairro/Setor</th>
+                        <th scope="col">Cidade</th>
+                        <th scope="col">Valor do Imóvel</th>
+                        <th scope="col">Valor da Entrada</th>
+                        <th scope="col">Detalhes</th>
+                        <th scope="col">Corretor</th>
+                        <th scope="col">Anúncio</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for imovel in lista_de_imoveis %}
+                    <tr>
+                        <td><strong>{{ imovel.bairro }}</strong></td>
+                        <td>{{ imovel.cidade }}</td>
+                        <td>{{ imovel.preco }}</td>
+                        <td>{{ imovel.valor_entrada }}</td>
+                        <td>
+                            <span class="badge bg-primary me-1">{{ imovel.quartos }} Qts</span>
+                            <span class="badge bg-secondary me-1">{{ imovel.area_total }}</span>
+                            {% if imovel.suite == 'Sim' %}
+                                <span class="badge bg-success">Suíte</span>
+                            {% endif %}
+                            {% if imovel.area_gourmet == 'Sim' %}
+                                <span class="badge bg-warning text-dark">Gourmet</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div>{{ imovel.corretor.nome }}</div>
+                            <a href="#"><small class="text-muted">{{ imovel.corretor.contato }}</small></a>
+                        </td>
+                        <td>
+                            <a href="{{ imovel.link_anuncio }}" class="btn btn-outline-secondary btn-sm" target="_blank">
+                                Ver Link
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-outline-primary btn-sm disabled">Editar</a>
+                            <a href="#" class="btn btn-outline-danger btn-sm disabled">Excluir</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
