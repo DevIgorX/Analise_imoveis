@@ -37,7 +37,7 @@ def cadastrar_corretor():
     flash(f'O corretor {corretor.nome} já existe no banco de dados.')  
     return redirect(url_for('rotas.cadastrar_imo'))
   else:
-   novo_corretor = Corretores(nome=nome_corretor, contato=contato)
+   novo_corretor = Corretores(nome=nome_corretor, contato=contato) 
    db.session.add(novo_corretor)
    db.session.commit()
    flash("Corretor Cadastrado com Sucesso")
@@ -59,8 +59,6 @@ def criar():
   nome_corretor = request.form['nome_corretor']
 
   corretor = Corretores.query.filter_by(nome=nome_corretor).first() 
-
-  print(corretor)
 
   if corretor:
    novo_imovel = Imoveis(bairro=bairro, cidade=cidade, preco=preco, quartos=quartos, area_total=area_total, area_construida=area_construida,area_gourmet= area_gourmet, suite=suite, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=corretor.id)

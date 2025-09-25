@@ -1,96 +1,145 @@
 {% extends 'base.html' %}
 
-{% block title %}Cadastrar Imóvel{% endblock %}
+{% block title %}Editar Imóvel{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Atualizar Imóvel</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+          </svg> Editar Imóvel</h1>
+        <a href="{{ url_for('rotas.index') }}" class="btn btn-secondary">Cancelar e Voltar</a>
+    </div>
 
     <form action="{{url_for('rotas.atualizar')}}" method="POST">
         <input type="hidden" name="id" value="{{imovel.id}}">
-        <div class="mb-3">
-            <label for="bairro" class="form-label">Setor/Bairro</label>
-            <input type="text" class="form-control" id="bairro" name="bairro" value="{{imovel.bairro}}" required>
-        </div>
-        <div class="mb-3">
-            <label for="cidade" class="form-label">Cidade/Município</label>
-           <select class="form-control" id="cidade" name="cidade" required>
-             <option value="{{imovel.cidade}}">{{imovel.cidade}}</option>
-             <option value="Goiânia">Goiânia</option>
-             <option value="Trindade">Trindade</option>
-             <option value="Senador Canedo">Senador Canedo</option>
-             <option value="Goianira">Goianira</option>
-             <option value="Aparecida de Goiânia">Aparecida de Goiânia</option>
-             
-            </select>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h5>Localização</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="bairro" class="form-label">Setor/Bairro</label>
+                            <input type="text" class="form-control" id="bairro" name="bairro" value="{{imovel.bairro}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cidade" class="form-label">Cidade/Município</label>
+                           <select class="form-control" id="cidade" name="cidade" required>
+                             <option value="{{imovel.cidade}}" selected>{{imovel.cidade}}</option>
+                             <option value="Goiânia">Goiânia</option>
+                             <option value="Trindade">Trindade</option>
+                             <option value="Senador Canedo">Senador Canedo</option>
+                             <option value="Goianira">Goianira</option>
+                             <option value="Aparecida de Goiânia">Aparecida de Goiânia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h5>Valores</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="preco" class="form-label">Valor do Imóvel</label>
+                            <input type="text" class="form-control money" id="preco" name="preco" value="{{imovel.preco}}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="valor_entrada" class="form-label">Valor de Entrada</label>
+                            <input type="text" class="form-control money" id="valor_entrada" name="valor_entrada" value="{{imovel.valor_entrada}}" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h5>Detalhes do Imóvel</h5>
+                    </div>
+                    <div class="card-body">
+                         <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label for="quartos" class="form-label">Quartos</label>
+                                <select class="form-control" id="quartos" name="quartos" required>
+                                 <option value="{{imovel.quartos}}" selected>{{imovel.quartos}}</option>
+                                 <option value="1">1</option>
+                                 <option value="2">2</option>
+                                 <option value="3">3</option>
+                                 <option value="4">4</option>
+                                 <option value="5">5+</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label for="area_total" class="form-label">Área Total</label>
+                                <input type="text" class="form-control area" id="area_total" name="area_total" value="{{imovel.area_total}}" required>
+                            </div>
+                             <div class="col-sm-6 mb-3">
+                                <label for="area_construida" class="form-label">Área Construída</label>
+                                <input type="text" class="form-control area" id="area_construida" name="area_construida" value="{{imovel.area_construida}}" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-6 mb-3">
+                                <label class="form-label d-block">Possui Suíte?</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="suite" id="suiteSim" value="Sim" {% if imovel.suite == 'Sim' %}checked{% endif %} required>
+                                    <label class="form-check-label" for="suiteSim">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="suite" id="suiteNao" value="Não" {% if imovel.suite == 'Não' %}checked{% endif %}>
+                                    <label class="form-check-label" for="suiteNao">Não</label>
+                                </div>
+                            </div>
+                           <div class="col-sm-6 mb-3">
+                                <label class="form-label d-block">Área Gourmet?</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="area_gourmet" id="gourmetSim" value="Sim" {% if imovel.area_gourmet == 'Sim' %}checked{% endif %} required>
+                                    <label class="form-check-label" for="gourmetSim">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="area_gourmet" id="gourmetNao" value="Não" {% if imovel.area_gourmet == 'Não' %}checked{% endif %}>
+                                    <label class="form-check-label" for="gourmetNao">Não</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h5>Informações Adicionais</h5>
+                    </div>
+                    <div class="card-body">
+                         <div class="mb-3">
+                            <label for="link" class="form-label">Link do Anúncio</label>
+                            <input type="url" class="form-control" id="link" name="link_anuncio" value="{{imovel.link_anuncio}}" required>
+                        </div>
+                
+                        <div class="mb-3">
+                            <label for="nome_corretor" class="form-label">Nome do Corretor</label>
+                            <select class="form-control" id="nome_corretor" name="nome_corretor" required>
+                                <option value="{{ imovel.corretor.nome }}" selected>{{ imovel.corretor.nome }}</option>
+                                {% for corretor in corretores %}
+                                    {% if corretor.nome != imovel.corretor.nome %}
+                                        <option value="{{ corretor.nome }}">{{ corretor.nome }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label for="preco" class="form-label">Valor do Imovel</label>
-            <input type="text" class="form-control money" id="preco" name="preco" placeholder="Ex: R$ 350.000,00" value="{{imovel.preco}}" required>
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-success btn-lg">Atualizar Imóvel</button>
         </div>
-
-        <div class="mb-3">
-            <label for="quartos" class="form-label">Quantidade de Quartos</label>
-            <select class="form-control" id="quartos" name="quartos" required>
-             <option value="{{imovel.quartos}}">{{imovel.quartos}}</option>
-             <option value="1">1</option>
-             <option value="2">2</option>
-             <option value="3">3</option>
-             <option value="4">4</option>
-             <option value="5">5</option>
-             
-            </select>
-        </div>
-
-         <div class="mb-3">
-            <label for="area_gourmet" class="form-label">Área Gourmet</label>
-            <select class="form-control" id="area_gourmet" name="area_gourmet" required>
-             <option value="{{imovel.area_gourmet}}">{{imovel.area_gourmet}}</option>
-             <option value="Sim">Sim</option>
-             <option value="Não">Não</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="suite" class="form-label">Suite</label>
-            <select class="form-control" id="suite" name="suite" required>
-             <option value="{{imovel.suite}}">{{imovel.suite}}</option>
-             <option value="Sim">Sim</option>
-             <option value="Não">Não</option>
-            </select>
-        </div>
-         <div class="mb-3">
-            <label for="area_construida" class="form-label">Área Construida</label>
-            <input type="text" class="form-control area" id="area_construida" name="area_construida" placeholder="Ex: 180m²" value="{{imovel.area_construida}}"  required>
-        </div>
-
-        <div class="mb-3">
-            <label for="area_total" class="form-label">Área Total</label>
-            <input type="text" class="form-control area" id="area_total" name="area_total" placeholder="Ex: 180m²" value="{{imovel.area_total}}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="valor_entrada"" class="form-label">Valor de Entrada</label>
-            <input type="text" class="form-control money" id="valor_entrada" name="valor_entrada" placeholder="R$ 20.000,00" value="{{imovel.valor_entrada}}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="link" class="form-label">Link do Anúncio</label>
-            <input type="url" class="form-control" id="link" name="link_anuncio" placeholder="https://..." value="{{imovel.link_anuncio}}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="nome_corretor" class="form-label">Nome do Corretor</label>
-            <select class="form-control" id="nome_corretor" name="nome_corretor" required>
-                <option value="">Selecione o Corretor</option>
-                {% for corretor in corretores %}
-                    <option value="{{ corretor.nome }}">{{ corretor.nome }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <button type="submit" class="btn btn-success">Cadastrar</button>
-        <a href="/" class="btn btn-secondary">Cancelar</a>
-        
     </form>
 </div>
 {% endblock %}

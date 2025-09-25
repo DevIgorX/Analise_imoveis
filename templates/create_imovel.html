@@ -4,92 +4,138 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Cadastrar Novo Imóvel</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-plus-fill" viewBox="0 0 16 16">
+            <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+            <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
+          </svg> Cadastrar Novo Imóvel</h1>
+        <a href="{{ url_for('rotas.index') }}" class="btn btn-secondary">Cancelar e Voltar</a>
+    </div>
 
     <form action="{{url_for('rotas.criar')}}" method="POST">
-        <div class="mb-3">
-            <label for="bairro" class="form-label">Setor/Bairro</label>
-            <input type="text" class="form-control" id="bairro" name="bairro" required>
-        </div>
-        <div class="mb-3">
-            <label for="cidade" class="form-label">Cidade/Município</label>
-           <select class="form-control" id="cidade" name="cidade" required>
-             <option value="">Selecione</option>
-             <option value="Goiânia">Goiânia</option>
-             <option value="Trindade">Trindade</option>
-             <option value="Senador Canedo">Senador Canedo</option>
-             <option value="Goianira">Goianira</option>
-             <option value="Aparecida de Goiânia">Aparecida de Goiânia</option>
-             
-            </select>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h5>Localização</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="bairro" class="form-label">Setor/Bairro</label>
+                            <input type="text" class="form-control" id="bairro" name="bairro" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cidade" class="form-label">Cidade/Município</label>
+                            <select class="form-control" id="cidade" name="cidade" required>
+                                <option value="" disabled selected>Selecione uma cidade</option>
+                                <option value="Goiânia">Goiânia</option>
+                                <option value="Trindade">Trindade</option>
+                                <option value="Senador Canedo">Senador Canedo</option>
+                                <option value="Goianira">Goianira</option>
+                                <option value="Aparecida de Goiânia">Aparecida de Goiânia</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h5>Valores</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="preco" class="form-label">Valor do Imóvel</label>
+                            <input type="text" class="form-control money" id="preco" name="preco" placeholder="Ex: R$ 350.000,00" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="valor_entrada" class="form-label">Valor de Entrada</label>
+                            <input type="text" class="form-control money" id="valor_entrada" name="valor_entrada" placeholder="R$ 20.000,00" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header">
+                        <h5>Detalhes do Imóvel</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label for="quartos" class="form-label">Quartos</label>
+                                <select class="form-control" id="quartos" name="quartos" required>
+                                    <option value="" disabled selected>Selecione</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5+</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label for="area_total" class="form-label">Área Total</label>
+                                <input type="text" class="form-control area" id="area_total" name="area_total" placeholder="Ex: 180m²" required>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label for="area_construida" class="form-label">Área Construída</label>
+                                <input type="text" class="form-control area" id="area_construida" name="area_construida" placeholder="Ex: 90m²" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <label class="form-label d-block">Possui Suíte?</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="suite" id="suiteSim" value="Sim" required>
+                                    <label class="form-check-label" for="suiteSim">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="suite" id="suiteNao" value="Não">
+                                    <label class="form-check-label" for="suiteNao">Não</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label class="form-label d-block">Área Gourmet?</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="area_gourmet" id="gourmetSim" value="Sim" required>
+                                    <label class="form-check-label" for="gourmetSim">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="area_gourmet" id="gourmetNao" value="Não">
+                                    <label class="form-check-label" for="gourmetNao">Não</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                     <div class="card-header">
+                        <h5>Informações Adicionais</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="link" class="form-label">Link do Anúncio</label>
+                            <input type="url" class="form-control" id="link" name="link_anuncio" placeholder="https://..." required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nome_corretor" class="form-label">Nome do Corretor</label>
+                            <select class="form-control" id="nome_corretor" name="nome_corretor" required>
+                                <option value="" disabled selected>Selecione um corretor</option>
+                                {% for corretor in corretores %}
+                                    <option value="{{ corretor.nome }}">{{ corretor.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label for="preco" class="form-label">Valor do Imovel</label>
-            <input type="text" class="form-control money" id="preco" name="preco" placeholder="Ex: R$ 350.000,00" required>
+        <div class="mt-4 text-center">
+            <button type="submit" class="btn btn-success btn-lg">Cadastrar Imóvel</button>
         </div>
-
-        <div class="mb-3">
-            <label for="quartos" class="form-label">Quantidade de Quartos</label>
-            <select class="form-control" id="quartos" name="quartos" required>
-             <option value="">Selecione</option>
-             <option value="1">1</option>
-             <option value="2">2</option>
-             <option value="3">3</option>
-             <option value="4">4</option>
-             <option value="5">5</option>
-             
-            </select>
-        </div>
-
-         <div class="mb-3">
-            <label for="area_gourmet" class="form-label">Área Gourmet</label>
-            <select class="form-control" id="area_gourmet" name="area_gourmet" required>
-             <option value="">Selecione</option>
-             <option value="Sim">Sim</option>
-             <option value="Não">Não</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="suite" class="form-label">Suite</label>
-            <select class="form-control" id="suite" name="suite" required>
-             <option value="">Selecione</option>
-             <option value="Sim">Sim</option>
-             <option value="Não">Não</option>
-            </select>
-        </div>
-         <div class="mb-3">
-            <label for="area_construida" class="form-label">Área Construida</label>
-            <input type="text" class="form-control area" id="area_construida" name="area_construida" placeholder="Ex: 180m²"  required>
-        </div>
-
-        <div class="mb-3">
-            <label for="area_total" class="form-label">Área Total</label>
-            <input type="text" class="form-control area" id="area_total" name="area_total" placeholder="Ex: 180m²" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="valor_entrada"" class="form-label">Valor de Entrada</label>
-            <input type="text" class="form-control money" id="valor_entrada" name="valor_entrada" placeholder="R$ 20.000,00" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="link" class="form-label">Link do Anúncio</label>
-            <input type="url" class="form-control" id="link" name="link_anuncio" placeholder="https://..." required>
-        </div>
-
-        <div class="mb-3">
-            <label for="nome_corretor" class="form-label">Nome do Corretor</label>
-            <select class="form-control" id="nome_corretor" name="nome_corretor" required>
-                <option value="">Selecione um corretor</option>
-                {% for corretor in corretores %}
-                    <option value="{{ corretor.nome }}">{{ corretor.nome }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <button type="submit" class="btn btn-success">Cadastrar</button>
-        <a href="/" class="btn btn-secondary">Cancelar</a>
-        
     </form>
 </div>
 {% endblock %}
