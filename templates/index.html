@@ -66,7 +66,7 @@
                         </td>
                         <td>
                             <a href="{{url_for('rotas.editar', id=imovel.id )}}" class="btn btn-outline-primary btn-sm target="_blank">Editar</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm ">Excluir</a>
+                            <a href="{{url_for('rotas.deletar', id=imovel.id)}}" class="btn btn-outline-danger btn-sm ">Excluir</a>
                         </td>
                     </tr>
                     {% endfor %}

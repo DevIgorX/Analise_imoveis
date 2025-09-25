@@ -77,7 +77,7 @@ def criar():
 def editar(id):
   imovel = Imoveis.query.filter_by(id=id).first()
   corretores = Corretores.query.all()
-  corretor = Corretores.query.filter_by(id=id).first() #em desenvolvimento
+  # corretor = Corretores.query.filter_by(id=id).first() #em desenvolvimento
   return render_template('edit_imovel.html',imovel=imovel,corretores=corretores)
 
 @rotas.route('/atualizar', methods=['POST'])
@@ -100,6 +100,16 @@ def atualizar():
   db.session.commit()
 
   return redirect(url_for('rotas.index'))
+
+@rotas.route('/deletar/<int:id>')
+def deletar(id):
+ 
+ Imoveis.query.filter_by(id=id).delete()
+ db.session.commit()
+
+ flash( 'Imovel Deletado!')
+
+ return redirect(url_for('rotas.index'))
 
  
 
