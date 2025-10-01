@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, jsonify, request, redirect, url_for, flash
+from flask import Blueprint, render_template,request
 from models import Corretores, Imoveis
-from extensions import db
-from services import (create_corretor, create_imovel, edit_imovel)
+from services import (create_corretor, create_imovel, edit_imovel, deletar_imovel)
 
 
 rotas = Blueprint('rotas',__name__)
@@ -47,13 +46,7 @@ def atualizar():
 
 @rotas.route('/deletar/<int:id>')
 def deletar(id):
- 
- Imoveis.query.filter_by(id=id).delete()
- db.session.commit()
-
- flash( 'Imovel Deletado!')
-
- return redirect(url_for('rotas.index'))
+ return deletar_imovel(id)
 
 
 

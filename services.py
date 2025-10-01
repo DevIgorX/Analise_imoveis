@@ -63,3 +63,12 @@ def edit_imovel(request):
   db.session.commit()
 
   return redirect(url_for('rotas.index'))
+
+def deletar_imovel(id):
+ 
+ Imoveis.query.filter_by(id=id).delete()
+ db.session.commit()
+
+ flash( 'Imovel Deletado!')
+
+ return redirect(url_for('rotas.index'))
