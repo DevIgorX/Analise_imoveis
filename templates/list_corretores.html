@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Corretores{% endblock %}
+
+{% block content %}
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="icon-bed" viewBox="0 0 16 16">
+        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+    </symbol>
+    <symbol id="icon-area" viewBox="0 0 16 16">
+        <path d="M10.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708l10-10zM10.5 1.5L1.5 10.5 3 12l9-9-1.5-1.5z"/>
+    </symbol>
+</svg>
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Lista de Corretores</h1>
+    <div>
+        <a href="/cadastrar_imovel_template" class="btn btn-primary">Adicionar Imóvel</a> 
+        <a href="/cadastrar_corretor_template" class="btn btn-info">Adicionar Corretor</a>
+        <a href="{{url_for('rotas.home')}}" class="btn btn-info">Voltar</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Contado</th>
+                        <th scope="col">Editar     Exclui</th>
+                </thead>
+                <tbody>
+                    {% for corretor in lista_de_corretores %}
+                    <tr>
+                        <td>{{ corretor.nome }}</td>
+                        <td>{{ corretor.contato }}</td>
+                         <td>
+                            <a href="{{url_for('rotas.editar_corretor', id=corretor.id )}}" class="btn btn-outline-primary btn-sm target="_blank">Editar</a>
+                            <a href="{{url_for('rotas.deletar_corretor', id=corretor.id)}}" class="btn btn-outline-danger btn-sm ">Excluir</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -72,3 +72,24 @@ def deletar_imovel(id):
  flash( 'Imovel Deletado!')
 
  return redirect(url_for('rotas.index'))
+
+
+def excluir_correto(id):
+ Corretores.query.filter_by(id=id).delete()
+ db.session.commit()
+ flash('Corretor Deletado!')
+
+ return redirect(url_for('rotas.lista_corretores'))
+
+
+def edit_corretor(request):
+  corretor = Corretores.query.filter_by(id=request.form['id']).first()
+  corretor.nome = request.form['nome'] # type: ignore
+  corretor.contato = request.form['contato'] # type: ignore
+
+  db.session.add(corretor)
+  db.session.commit()
+  return redirect(url_for('rotas.lista_corretores'))
+
+
+

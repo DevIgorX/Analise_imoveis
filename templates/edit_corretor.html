@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %} Cadastro Corretor {% endblock %}
+{% block title %} Editar Corretor {% endblock %}
 
 {% block content %}
 
 <div class="container mt-4">
- <h1 class="mb-4">Cadastrar Novo Corretor</h1>
+ <h1 class="mb-4">Editar Corretor</h1>
 
- <form action="{{url_for('rotas.cadastrar_corretor')}}" method="POST">
+ <form action="{{url_for('rotas.atualizar_corretor')}}" method="POST">
+     <input type="hidden" name="id" value="{{corretor.id}}">
   <div class="mb-3">
     <label for="corretor" class="form-label">Nome do Corretor</label>
-    <input type="text" class="form-control"id="corretor" name="nome" required> 
+    <input type="text" class="form-control"id="corretor" name="nome" value="{{corretor.nome}}" required> 
   </div>
   <div class="mb-3">
     <label for="contato">Telefone</label>
-    <input type="tel" id="contato" name="contato" class="form-control" maxlength="15" placeholder="(62) 9 9999-9999" required>
+    <input type="tel" id="contato" name="contato" class="form-control" maxlength="15" placeholder="(62) 9 9999-9999" value="{{corretor.contato}}" required>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- jQuery Mask -->
@@ -25,10 +26,9 @@
      });
     </script>
   </div>
-  <button type="submit" class="btn btn-success">Cadastrar</button>
+  <button type="submit" class="btn btn-success">Atualizar</button>
   <a href="{{url_for('rotas.lista_corretores')}}" class="btn btn-secondary">Cancelar</a>
  </form>
 </div>
 
 {%endblock %}
-
