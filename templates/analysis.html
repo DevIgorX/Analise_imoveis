@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Análise de Imóveis{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Análise de Imóveis</h1>
+        <a href="{{ url_for('rotas.home') }}" class="btn btn-secondary">Voltar</a>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            <h5>Filtros</h5>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('rotas.analise') }}" method="POST">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="cidade" class="form-label">Filtrar por Cidade</label>
+                        <select class="form-select" id="cidade" name="cidade">
+                            <option value="">Todas as Cidades</option>
+                            {% for cidade in cidades %}
+                                <option value="{{ cidade }}" {% if cidade == cidade_selecionada %}selected{% endif %}>{{ cidade }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="corretor" class="form-label">Filtrar por Corretor</label>
+                        <select class="form-select" id="corretor" name="corretor">
+                            <option value="">Todos os Corretores</option>
+                            {% for corretor in corretores %}
+                                <option value="{{ corretor.id }}" {% if corretor.id|string == corretor_selecionado %}selected{% endif %}>{{ corretor.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card text-center h-100 shadow-sm bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Média de Preço Geral</h5>
+                    <p class="card-text display-6">R$ {{ "%.2f"|format(media_preco_geral or 0) }}</p>
+                </div>
+            </div>
+        </div>
+        {% if media_preco_cidade %}
+        <div class="col-md-6">
+            <div class="card text-center h-100 shadow-sm bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">Média de Preço em {{ cidade_selecionada }}</h5>
+                    <p class="card-text display-6">R$ {{ "%.2f"|format(media_preco_cidade) }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h5>Imóveis Filtrados</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Bairro/Setor</th>
+                            <th scope="col">Cidade</th>
+                            <th scope="col">Valor do Imóvel</th>
+                            <th scope="col">Corretor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for imovel in imoveis_filtrados %}
+                        <tr>
+                            <td><strong>{{ imovel.bairro }}</strong></td>
+                            <td>{{ imovel.cidade }}</td>
+                            <td>{{ imovel.preco }}</td>
+                            <td>{{ imovel.corretor.nome }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">Nenhum imóvel encontrado com os filtros selecionados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+     <div class="col-md-6 mt-4">
+        <div class="card text-center h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Quantidade de Imóveis por Corretor</h5>
+                <ul class="list-group list-group-flush">
+                    {% for nome_corretor, count in imoveis_por_corretor %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ nome_corretor }}
+                            <span class="badge bg-primary rounded-pill">{{ count }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template,request
 from models import Corretores, Imoveis
 from services import (create_corretor, create_imovel, edit_imovel, deletar_imovel,excluir_correto, edit_corretor)
+from sqlalchemy import func
+from extensions import db
 
 
 rotas = Blueprint('rotas',__name__)
@@ -68,6 +70,46 @@ def atualizar_corretor():
 @rotas.route('/deletar_corretor/<int:id>')
 def deletar_corretor(id):
  return excluir_correto(id)
+
+
+@rotas.route('/analise', methods=['GET', 'POST'])
+def analise():
+    cidades = db.session.query(Imoveis.cidade).distinct().all()
+    corretores = Corretores.query.all()
+
+    cidade_selecionada = request.form.get('cidade')
+    corretor_selecionado = request.form.get('corretor')
+
+    query = Imoveis.query
+
+    if cidade_selecionada:
+        query = query.filter(Imoveis.cidade == cidade_selecionada)
+
+    if corretor_selecionado:
+        query = query.filter(Imoveis.id_corretor == corretor_selecionado)
+
+    imoveis_filtrados = query.all()
+
+    # Análises
+    media_preco_geral = db.session.query(func.avg(Imoveis.preco)).scalar()
+    media_preco_cidade = None
+    if cidade_selecionada:
+        media_preco_cidade = db.session.query(func.avg(Imoveis.preco)).filter(Imoveis.cidade == cidade_selecionada).scalar()
+    
+    imoveis_por_corretor = db.session.query(Corretores.nome, func.count(Imoveis.id)).join(Imoveis).group_by(Corretores.nome).all()
+
+
+    return render_template('analysis.html',
+                           cidades=[c[0] for c in cidades],
+                           corretores=corretores,
+                           imoveis_filtrados=imoveis_filtrados,
+                           cidade_selecionada=cidade_selecionada,
+                           corretor_selecionado=corretor_selecionado,
+                           media_preco_geral=media_preco_geral,
+                           media_preco_cidade=media_preco_cidade,
+                           imoveis_por_corretor=imoveis_por_corretor)
+
+  
 
 
 
