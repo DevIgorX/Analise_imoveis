@@ -16,7 +16,7 @@ def create_corretor(request):
    db.session.add(novo_corretor)
    db.session.commit()
    flash("Corretor Cadastrado com Sucesso")
-   return redirect(url_for('rotas.index'))
+   return redirect(url_for('rotas.lista_corretores'))
   
 def create_imovel(request):
   
@@ -38,7 +38,7 @@ def create_imovel(request):
    novo_imovel = Imoveis(bairro=bairro, cidade=cidade, preco=preco, quartos=quartos, area_total=area_total, area_construida=area_construida,area_gourmet= area_gourmet, suite=suite, valor_entrada=valor_entrada, link_anuncio=link_anuncio , id_corretor=corretor.id)
    db.session.add(novo_imovel)
    db.session.commit()
-   flash("Imovel cadastrado com sucesso!")
+   flash("Imovel atualizado com sucesso!")
    return redirect(url_for('rotas.index'))
   else: 
    flash("Corretor não existe no banco de dados")

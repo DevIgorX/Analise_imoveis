@@ -56,7 +56,6 @@ def deletar(id):
  return deletar_imovel(id)
 
 
-
 @rotas.route('/editar_corretor/<int:id>')
 def editar_corretor(id):
   corretor = Corretores.query.filter_by(id=id).first()
