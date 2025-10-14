@@ -92,4 +92,36 @@ def edit_corretor(request):
   return redirect(url_for('rotas.lista_corretores'))
 
 
+def analizar(request):
 
+  #  imovel.bairro = request.form['bairro']
+  #  imovel.preco  = request.form['preco'] 
+
+  cidades = Imoveis.query.with_entities(Imoveis.cidade).distinct().all()
+  bairros = Imoveis.query.with_entities(Imoveis.bairro).distinct().all()
+  lista_cidades = []
+  for cidade in cidades:
+    lista_cidades.append(cidade[0])
+  lista_bairros = [bairro[0] for bairro in bairros]
+  corretor = Corretores.query.all()
+
+  cidade_selecionada = request.form['cidade']
+  corretor_selecionado = request.form['corretor']
+  valor_selecionado = request.form['preco']
+
+
+  if cidade_selecionada:
+    query = Imoveis.query.filter(Imoveis.cidade == cidade_selecionada)
+
+  if corretor_selecionado:
+    query = Imoveis.query.filter(Imoveis.id_corretor == corretor_selecionado)
+
+
+  Imoveis_filtrados = query.all()
+
+
+
+
+  
+
+  return ''
