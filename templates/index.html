@@ -4,8 +4,10 @@
 
 {% block content %}
 
+{# SVG Symbols remain the same #}
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="icon-bed" viewBox="0 0 16 16">
+    {# ... (symbol definitions remain unchanged) ... #}
+     <symbol id="icon-bed" viewBox="0 0 16 16">
         <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
     </symbol>
     <symbol id="icon-area" viewBox="0 0 16 16">
@@ -17,18 +19,30 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>Catálogo de Imóveis</h1>
     <div>
-        <a href="/cadastrar_imovel_template" class="btn btn-primary">Adicionar Imóvel</a> 
+        <a href="/cadastrar_imovel_template" class="btn btn-primary">Adicionar Imóvel</a>
         <a href="/cadastrar_corretor_template" class="btn btn-info">Adicionar Corretor</a>
         <a href="/analise" class="btn btn-warning">Análise de Imóveis</a>
-        <a href="{{url_for('rotas.home')}}" class="btn btn-info">Voltar</a>
+        <a href="{{url_for('rotas.home')}}" class="btn btn-secondary">Voltar</a>
     </div>
 </div>
 
 <div class="card shadow-sm">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
+            <table class="table table-hover align-middle" id="imoveisTable">
                 <thead class="table-light">
+                     {# Linha para os filtros com SELECT #}
+                    <tr>
+                        <th><select class="form-select form-select-sm filter-select" data-column-index="0"><option value="">Todos Bairros</option></select></th>
+                        <th><select class="form-select form-select-sm filter-select" data-column-index="1"><option value="">Todas Cidades</option></select></th>
+                        <th><select class="form-select form-select-sm filter-select" data-column-index="2"><option value="">Todos Valores</option></select></th>
+                        <th><select class="form-select form-select-sm filter-select" data-column-index="3"><option value="">Todas Entradas</option></select></th>
+                        <th></th> {# Coluna Detalhes sem filtro #}
+                        <th><select class="form-select form-select-sm filter-select" data-column-index="5"><option value="">Todos Corretores</option></select></th>
+                        <th></th> {# Coluna Anúncio sem filtro #}
+                        <th></th> {# Coluna Ações sem filtro #}
+                    </tr>
+                    {# Linha original dos cabeçalhos #}
                     <tr>
                         <th scope="col">Bairro/Setor</th>
                         <th scope="col">Cidade</th>
@@ -40,7 +54,7 @@
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="imoveisTableBody">
                     {% for imovel in lista_de_imoveis %}
                     <tr>
                         <td><strong>{{ imovel.bairro }}</strong></td>
@@ -58,8 +72,9 @@
                             {% endif %}
                         </td>
                         <td>
-                            <div>{{ imovel.corretor.nome }}</div>
-                            <a href="#"><small class="text-muted">{{ imovel.corretor.contato }}</small></a>
+                            {# Acessa o nome do corretor diretamente do texto dentro da célula para o filtro #}
+                            {{ imovel.corretor.nome }}
+                            <div><small class="text-muted">{{ imovel.corretor.contato }}</small></div>
                         </td>
                         <td>
                             <a href="{{ imovel.link_anuncio }}" class="btn btn-outline-secondary btn-sm" target="_blank">
@@ -67,7 +82,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{url_for('rotas.editar', id=imovel.id )}}" class="btn btn-outline-primary btn-sm target="_blank">Editar</a>
+                            <a href="{{url_for('rotas.editar', id=imovel.id )}}" class="btn btn-outline-primary btn-sm">Editar</a>
                             <a href="{{url_for('rotas.deletar', id=imovel.id)}}" class="btn btn-outline-danger btn-sm ">Excluir</a>
                         </td>
                     </tr>
@@ -77,5 +92,103 @@
         </div>
     </div>
 </div>
+
+{# Script JavaScript atualizado para popular selects e filtrar #}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterSelects = document.querySelectorAll('.filter-select');
+    const tableBody = document.getElementById('imoveisTableBody');
+    const tableRows = tableBody.querySelectorAll('tr');
+
+    // Função para popular os selects com opções únicas
+    function populateFilters() {
+        const uniqueValues = {}; // Objeto para guardar valores únicos por coluna
+
+        filterSelects.forEach(select => {
+            const columnIndex = parseInt(select.getAttribute('data-column-index'), 10);
+            uniqueValues[columnIndex] = new Set(); // Usa Set para guardar valores únicos automaticamente
+        });
+
+        // Itera pelas linhas da tabela para coletar os valores
+        tableRows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            filterSelects.forEach(select => {
+                const columnIndex = parseInt(select.getAttribute('data-column-index'), 10);
+                if (cells[columnIndex]) {
+                    // Pega o texto principal da célula, ignorando sub-elementos como <small>
+                    let cellText = cells[columnIndex].firstChild?.textContent?.trim() || cells[columnIndex].textContent.trim();
+                     // Tratamento especial para coluna de corretor que pode ter div/small
+                     if (columnIndex === 5) {
+                         const mainDiv = cells[columnIndex].childNodes[0]; // Pega o primeiro nó (texto ou div)
+                         cellText = mainDiv?.textContent?.trim() || cellText;
+                     }
+                    if (cellText) {
+                        uniqueValues[columnIndex].add(cellText);
+                    }
+                }
+            });
+        });
+
+        // Adiciona as opções aos selects
+        filterSelects.forEach(select => {
+            const columnIndex = parseInt(select.getAttribute('data-column-index'), 10);
+            const sortedValues = Array.from(uniqueValues[columnIndex]).sort(); // Ordena as opções
+
+            sortedValues.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.appendChild(option);
+            });
+        });
+    }
+
+    // Função para aplicar os filtros
+    function applyFilters() {
+        const filters = Array.from(filterSelects).map(select => ({
+            columnIndex: parseInt(select.getAttribute('data-column-index'), 10),
+            value: select.value // Pega o valor selecionado
+        }));
+
+        tableRows.forEach(row => {
+            let rowVisible = true;
+            const cells = row.querySelectorAll('td');
+
+            filters.forEach(filter => {
+                // Se um valor foi selecionado (não é a opção "Todos...")
+                if (filter.value !== '') {
+                    const cell = cells[filter.columnIndex];
+                    if (cell) {
+                         // Pega o texto principal da célula, da mesma forma que na população
+                        let cellText = cell.firstChild?.textContent?.trim() || cell.textContent.trim();
+                         // Tratamento especial para coluna de corretor
+                        if (filter.columnIndex === 5) {
+                             const mainDiv = cell.childNodes[0];
+                             cellText = mainDiv?.textContent?.trim() || cellText;
+                         }
+
+                        // Compara exatamente com o valor selecionado
+                        if (cellText !== filter.value) {
+                            rowVisible = false;
+                        }
+                    } else {
+                         rowVisible = false; // Se a célula esperada não existe, esconde a linha
+                    }
+                }
+            });
+
+            row.style.display = rowVisible ? '' : 'none';
+        });
+    }
+
+    // Popula os filtros quando a página carrega
+    populateFilters();
+
+    // Adiciona o listener para aplicar filtros quando uma opção é selecionada
+    filterSelects.forEach(select => {
+        select.addEventListener('change', applyFilters);
+    });
+});
+</script>
 
 {% endblock %}

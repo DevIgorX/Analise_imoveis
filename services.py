@@ -94,20 +94,21 @@ def edit_corretor(request):
 
 def analizar(request):
 
-  #  imovel.bairro = request.form['bairro']
-  #  imovel.preco  = request.form['preco'] 
 
   cidades = Imoveis.query.with_entities(Imoveis.cidade).distinct().all()
-  bairros = Imoveis.query.with_entities(Imoveis.bairro).distinct().all()
+  bairros = Imoveis.query.with_entities(Imoveis.bairro).distinct().all() #isso aqui retorna uma tupla
   lista_cidades = []
   for cidade in cidades:
-    lista_cidades.append(cidade[0])
-  lista_bairros = [bairro[0] for bairro in bairros]
+    lista_cidades.append(cidade[0]) #usando o cidade[0] para acessar um valor dentro da tupla
+  lista_bairros = []
+  for bairro in bairros:
+    lista_bairros.append(bairro[0])
   corretor = Corretores.query.all()
 
   cidade_selecionada = request.form['cidade']
   corretor_selecionado = request.form['corretor']
   valor_selecionado = request.form['preco']
+  bairro_selecionado = request.form['bairro']
 
 
   if cidade_selecionada:
@@ -115,6 +116,12 @@ def analizar(request):
 
   if corretor_selecionado:
     query = Imoveis.query.filter(Imoveis.id_corretor == corretor_selecionado)
+
+  if bairro_selecionado:
+    query = Imoveis.query.filter(Imoveis.bairro == bairro_selecionado)
+
+  if valor_selecionado :
+    query = Imoveis.query.filter(Imoveis.preco == valor_selecionado)
 
 
   Imoveis_filtrados = query.all()
